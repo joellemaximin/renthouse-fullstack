@@ -7,7 +7,7 @@
     "server": "nodemon back.js",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "install-client": "cd client && npm install",
-    "heroku-postbuild": "npm run install-client && npm install --only=dev --no-shrinkwrap && npm run build",
+    "heroku-postbuild": "npm run install-client && npm install && npm run build",
     "client": "npm start --prefix client"
   },
   "author": "joelle",
