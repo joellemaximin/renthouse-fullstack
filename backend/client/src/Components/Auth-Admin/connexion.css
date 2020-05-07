@@ -1,0 +1,59 @@
+.signUp {
+    margin: 5rem;
+}
+
+.loginIn{
+    margin: 6rem;
+}
+
+
+.form-title{
+    padding-bottom: 20px;
+    text-decoration-color: rgb(248, 204, 165);
+    text-decoration-line: underline;
+
+}
+
+.form-ii-connect input{
+    margin: 14px 0;
+}
+
+.sideconnect{
+    margin-top: 15px;
+    float: right;
+}
+
+.loginIn {
+    height: 20rem;
+    float: left;
+}
+
+hr.vertical {
+
+    float:left;
+    height: 30rem;
+    left: 50%;
+    width: 1px;
+    background-color: rgb(248, 204, 165);
+
+}
+
+.signUp {
+    height: 20rem;
+    float: right;
+
+}
+
+.cursor-right {
+    pointer-events: none;
+    cursor: pointer;
+    display: flex;
+    float: right;
+    margin-left: 1rem;
+    margin-top:5px;
+
+}
+
+.more{
+    height: 1vmin;
+}

@@ -1,0 +1,189 @@
+.logoGite {
+    height: 4vmin;
+    pointer-events: none;
+    justify-content: center;
+    display: flex;
+
+}
+
+.other{
+    height: 3vmin;
+}
+
+.reduce{
+    height: 2.6vmin;
+
+}
+
+
+ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+.liste-home, ul {
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 1.875rem;
+    
+}
+
+h1, h2, h3{
+    font-family: 'Liu Jian Mao Cao', cursive;
+    margin-bottom: 3rem;
+}
+
+p, li{
+    font-family: 'Open Sans', sans-serif;
+}
+
+li> img {
+    float: left;
+    padding-right: .4rem;
+}
+
+.liste-home >li {
+    width: 10%;
+}
+.liste-home>li {
+    width: 30%;
+    margin-bottom: 1.25rem;
+    padding-right: .625rem;
+}
+.liste-home >li:after{
+    font-family: ralewayReg,Arial,sans-serif;
+    font-weight: lighter;
+    font-size: 1rem;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.liste-home >li:before {
+    content: "";
+    display: block;
+    width: 1.5625rem;
+    height: 1.5625rem;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    color: #3a485f;
+    margin-right: .625rem;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.header-home{
+    margin-top: 35px;
+    margin-bottom: 75px;
+}
+
+.header-home{
+    font-size: 1.2rem;
+
+}
+
+.liste-equip{
+    margin-left: 3rem;
+    margin-top: 6px;
+}
+
+input[type=text] {
+    width: 300px;
+}
+
+.FormGroup{
+    padding-top: 15px!important;
+    margin-bottom: 20px!important;
+}
+
+.formulaire{
+    padding: 20px 30px;
+    margin: 5px 14px;
+}
+.submitButton{
+    background-color: rgb(193, 147, 50)!important;
+    color: #fff !important;
+    text-transform: lowercase;
+    text-decoration: none;
+    text-align: center;
+    width: 200px;
+    border-radius: 1rem;
+    display: inline-block;
+    border: none;
+    margin: 10px 0 10px;
+
+}
+
+.jumbotron {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #fff !important;
+    border-radius: .3rem;
+}
+.colorButton-general, .frontpage  {
+    background-color: rgb(193, 147, 50)!important;
+    color: #fff !important;
+    text-transform: lowercase;
+    text-decoration: none;
+    text-align: center;
+    width: 120px;
+    border-radius: 1rem;
+    display: inline-block;
+    border: none;
+    transition: all 0.4s ease 0s;
+    margin: 10px 0 30px;
+}
+
+.frontpage {
+    width: 180px;
+}
+
+.colorButton-general:hover, .submitButton:hover {
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    color: #ffffff !important;
+    background-color: rgb(227, 173, 57)!important;
+    transition: all 0.4s ease 0s;
+}
+
+.navbar{
+    background: linear-gradient(to right, #cbaf68, #dcb36b) !important;
+}
+
+.navbar a {
+    color: #fff !important;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.formulaire, .submitForm{
+    margin-top: 30px;
+}
+
+.submitForm{
+    padding-left: 5rem;
+}
+
+.footer{
+    text-align: center;
+    margin: auto;
+    padding-top: 35rem;
+}
+
+.PaymentSection{
+    padding: 2rem 3rem;
+}
+
+.paiement{
+   height: 2.4vmin;
+   margin-left: 10px;
+
+}

@@ -1,0 +1,13 @@
+.map-box{
+    margin: 50px 50px 50px;
+    justify-content: center;
+}
+
+.activity-box{
+    padding: 4rem;
+    margin: 15px 0 150px 0;
+}
+
+h3.title{
+    padding: 2rem 0;
+}

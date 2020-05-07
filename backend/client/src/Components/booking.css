@@ -1,0 +1,36 @@
+.booking-holiday{
+    /* background-color: rgb(179, 218, 162); */
+    width: 500px;
+    height: 506px;
+    padding: 32px 32px 24px 32px;
+    margin-top: 50px;
+}
+
+.booking-holiday label{
+    margin-right: 15px;
+}
+
+.box-model{
+    /* background-color: rgb(218, 162, 162); */
+    padding: 32px 32px 24px 32px;
+    border-radius: 1rem;
+    float: left;
+    position: relative;
+    
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-origin: padding-box;
+    box-shadow: rgba(0, 0, 0, 0.117647) 0px 16px 40px 0px;
+    box-sizing: border-box;
+    display: block;
+}
+
+.submit_newbook button{
+    float: right;
+    background-color: rgb(193, 147, 50)!important;
+    border: none;
+}
+
+.title-booking{
+    padding: 9px 13px 13px;
+}
