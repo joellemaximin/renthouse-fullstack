@@ -8,7 +8,9 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "cross-env": "^7.0.2",
     "google-maps-react": "^2.0.2",
+    "http-proxy-middleware": "^1.0.3",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-calendar": "^3.0.1",
@@ -21,15 +23,16 @@
     "styled-components": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "cross-env NODE_ENV=development react-scripts start",
+    "server": "node server.js",
+    "build": "cross-env NODE_ENV=production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  
   },
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://localhost:9200",
   "browserslist": {
     "production": [
       ">0.2%",
