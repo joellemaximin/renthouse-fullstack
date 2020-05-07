@@ -32,9 +32,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // catch 404 and forward to error handler
-app.get("/", (req, res) => {
-  res.send("<h1>Hello, its working</h1>");
-});
+// app.get("/", (req, res) => {
+//   res.send("<h1>Hello, its working</h1>");
+// });
 
 app.post('/private-auth', function(request, response) {
 	var username = request.body.username;
