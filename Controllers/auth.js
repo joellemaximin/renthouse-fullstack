@@ -1,5 +1,5 @@
-const User = require("../Models/auth-model");
-// const pool = require("../middleware/dbConnect");
+const User = require("../Models/user-model");
+const {validationRegister, loginValidation} = require('../middleware/validation')
 
 exports.findAll = (req, res) => {
   User.getAll((err, data) => {
@@ -12,14 +12,21 @@ exports.findAll = (req, res) => {
   });
 };
 
+
+
 // //if user connect create a user
 exports.register = (req, res) => {
+
+  const { error } = validationRegister(req.body)
+  if (error) return res.status(422).send(error.details[0].message );
+
   // Validate request
   if (!req.body) {
     res.status(400).send({
       message: "Veuillez remplir les champs"
     });
   }
+
 
 //   // Create a user
   const user = new User({
@@ -40,23 +47,27 @@ exports.register = (req, res) => {
 };
 
 
+
+
 //if user create, find it and login
 exports.login = (req, res) => {
     
-    User.loginIn(req.body.username, req.body.password, (err, data) => {   
-        if (err)
-            res.status(500).send({
-            message:
-                err.message || "Quelques erreurs sont parvenus dans le controller user"
-            });
-        else res.send(data);
-    });
+  User.loginIn(req.body.username, req.body.password, (err, data) => {   
+    if (err)
+      res.status(500).send({
+      message:
+          err.message || "Quelques erreurs sont parvenus dans le controller user"
+      });
+    else res.send(data);
+  });
 };
+
+
 
 
 //findOne
 exports.findOne = (req, res) => {
-    User.getId(req.params.id, (err, res) => {
+  User.getId(req.params.id, (err, data) => {
     if (err){
       if (err.kind === "Pas trouvé") {
         res.status(404).send({
@@ -88,3 +99,9 @@ exports.delete = (req, res) => {
     } else res.send({ message: `user supprimé =!` });
   });
 };
+
+exports.signout = (req, res) => {
+  User.signoutId(req.params.id), (err, res)=> {
+
+  }
+}

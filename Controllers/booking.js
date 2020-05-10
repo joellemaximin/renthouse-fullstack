@@ -5,13 +5,13 @@ exports.findAll = (req, res) => {
     if (err)
       res.status(500).send({
         message:
-          err.message || "Quelques erreurs sont parvenus dans le controller Gite"
+          err.message || "Quelques erreurs sont parvenus dans le controller bookign"
       });
     else res.send(data);
   });
 };
 
-//if user connect create a gite
+//if user connect create a bookign
 exports.create = (req, res) => {
   // Validate request
   if (!req.body) {
@@ -20,22 +20,22 @@ exports.create = (req, res) => {
     });
   }
 
-  // Create a Gite
+  // Create a bookign
   const booking = new Booking({
     name: req.body.name,
     email: req.body.email,
     createdAt: req.body.createdAt,
     checkIn: req.body.checkIn,
     checkOut: req.body.checkOut,
-    giteId: req.body.giteId
+    bookignId: req.body.bookignId
   });
 
-  // Save Gite in the database
-  Booking.create(gite, (err, data) => {
+  // Save bookign in the database
+  Booking.create(booking, (err, data) => {
     if (err)
       res.status(500).send({
         message:
-          err.message || "Quelques erreurs sont parvenus dans le controller Gite."
+          err.message || "Quelques erreurs sont parvenus dans le controller bookign."
       });
     else res.send(data);
   });
@@ -43,23 +43,6 @@ exports.create = (req, res) => {
 
 };
 
-//findOne
-exports.findOne = (req, res) => {
-  Booking.getId(req.params.id, (err, resultat) => {
-    if (err){
-      if (err.kind === "Pas trouvé") {
-        res.status(404).send({
-          message: `Ce gite n'exite pas ${req.params.id} .`
-        });
-      } else {
-        res.status(500).send({
-          message: "Retrouve pas ce gite " + req.params.id
-        });
-      }
-    } else
-    res.send(resultat)
-  });
-}
 
 //update one
 exports.update = (req, res) => {
@@ -102,6 +85,47 @@ exports.delete = (req, res) => {
           message: "Impossible de supprimé id " + req.params.id
         });
       }
-    } else res.send({ message: `Gite supprimé =!` });
+    } else res.send({ message: `bookign supprimé =!` });
   });
 };
+
+//findOne booking
+exports.findOne = (req, res) => {
+  Booking.getId(req.params.id, (err, results) => {
+    if (err){
+      if (err.kind === "Pas trouvé") {
+        res.status(404).send({
+          message: `Ce bookign n'exite pas ${req.params.id} .`
+        });
+      } else {
+        res.status(500).send({
+          message: "Retrouve pas ce bookign " + req.params.id
+        });
+      }
+    } else
+    res.send(results)
+  });
+}
+
+//display last bookings
+exports.lastBookings = (req, res) => {
+  Booking.oldest((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Quelques erreurs sont parvenus dans le controller bookign"
+      });
+    else res.send(data);
+  });
+}
+
+exports.annuled = (req, res) => {
+  Booking.annulled24hours((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Quelques erreurs sont parvenus dans le controller bookign"
+      });
+    else res.send(data);
+  });
+}

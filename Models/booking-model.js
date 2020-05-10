@@ -1,5 +1,6 @@
 const pool = require("../middleware/dbConnect");
 
+//some have to be registered and user to make a book
 
 // constructor
 const Booking = function(booking) {
@@ -116,23 +117,23 @@ Booking.oldest = (result) => {
 }
 
 //nouveau bookings the last 48 hours, order by desc
-Booking.newest = (result) => {
-pool.query(`SELECT * FROM bookings WHERE checkIn > UNIX_TIMESTAMP(NOW() - INTERVAL 48 HOUR) ORDER BY date(createdAt) DESC
-`, (error, results, fields) => {
-  if (error) {
-      console.log("error: ", error);
-      results(null, error);
-      return;
-    }
+// Booking.newest = (result) => {
+// pool.query(`SELECT * FROM bookings WHERE checkIn > UNIX_TIMESTAMP(NOW() - INTERVAL 48 HOUR) ORDER BY date(createdAt) DESC
+// `, (error, results, fields) => {
+//   if (error) {
+//       console.log("error: ", error);
+//       results(null, error);
+//       return;
+//     }
 
-    console.log("nouveaux bookings");
-    result(null, res);
-  });
-}
+//     console.log("nouveaux bookings");
+//     result(null, res);
+//   });
+// }
 
 //annulé un booking sous 24H
 Booking.annulled24hours = (id, result) => {
-  pool.query(`DELETE FROM bookings WHERE checkIn < UNIX_TIMESTAMP(NOW() - INTERVAL 24 HOUR AND WHERE id = ${id}`, (error, results, fields) => {
+  pool.query(`DELETE FROM bookings WHERE checkIn =< UNIX_TIMESTAMP(NOW() - INTERVAL 24 HOUR AND WHERE id = ${id}`, (error, results, fields) => {
   if (error) {
     console.log("error: ", error);
     results(null, error);

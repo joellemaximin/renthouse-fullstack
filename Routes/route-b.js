@@ -11,4 +11,9 @@ module.exports = app => {
     app.put('/booking/:id', yup.update);
   
     app.delete('/booking/:id', yup.delete);
+
+    app.oldest('/bookings-past', yup.lastBookings);
+
+    app.annulled24hours('/bookings-annuled', yup.annuled)
+
 };

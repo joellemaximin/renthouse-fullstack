@@ -1,4 +1,8 @@
 const pool = require("../middleware/dbConnect");
+const bcrypt = require('bcrypt');
+const dbConfig = require("../middleware/db.config");
+const jwt = require('jsonwebtoken')
+
 
 
 // constructor
@@ -6,23 +10,38 @@ const User = function(user) {
   this.email = user.email;
   this.username = user.username;
   this.password = user.password;
+
 };
-  
-User.createUser = (newUser, result) => {
-  pool.query("INSERT INTO users SET ?", newUser, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
+
+
+
+//  pool.query("SELECT roles.*, photos.`name` from roles INNER JOIN photos ON roles.`id` = photos.`id` INNER JOIN equipements ON roles.`id` = equipements.`id`", (err, res) => {
+
+User.createUser = async (email, result) => {
+
+  const salt = await bcrypt.genSalt(10);
+
+  pool.query('SELECT * FROM users WHERE email= ?, username=? ', [email, username], (err, res) => {
+    if (err) throw err;
+        
+    if (!result.length) {
+      bcrypt.hash(user.password, salt, function(err, hash){
+        if(err) console.log(err);
+        password = hash;
+        
+        pool.query('INSERT INTO users SET ?', user, function (error, result, fields) {
+            if (error) throw error;
+            res.send({user: user.username});
+        }); 
+      });
     }
-    console.log("created User: ", { 
-      id: res.insertId, ...newUser 
-    });
-    result(null, { 
-      id: res.insertId, ...newUser
-    });
+  
+    else {
+      return res.send("Email already exists");
+    }
   });
 };
+
 
 
 User.loginIn = ( username, password, result) => {
@@ -55,7 +74,7 @@ User.loginIn = ( username, password, result) => {
     })
 };
 
-
+ 
 User.getAll = result => {
     pool.query("SELECT * from users", (err, res) => {
       if (err) {

@@ -1,0 +1,17 @@
+creeer une archive compressee:
+tar czvf folder.tgz folder
+tar czvf webbcd.tgz WebBCD
+
+decompresser tgz:
+tar xzvf folder.tgz
+
+
+scp -i ...pem source destination
+# la destination a un format username@host:/path
+scp -i "~/downloads/bcdschool.pem" abc ec2-user@ec2-52-14-27-161.us-east-2.compute.amazonaws.com:/tmp/
+scp -r # recursif, pour copier dossier
+scp -i "~/downloads/bcdKeypair.pem" webbcd.tgz ubuntu@ec2-3-21-158-113.us-east-2.compute.amazonaws.com:/tmp/
+
+
+redhat
+
