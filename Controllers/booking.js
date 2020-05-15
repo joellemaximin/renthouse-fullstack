@@ -11,38 +11,6 @@ exports.findAll = (req, res) => {
   });
 };
 
-//if user connect create a bookign
-exports.create = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Veuillez remplir les champs"
-    });
-  }
-
-  // Create a bookign
-  const booking = new Booking({
-    name: req.body.name,
-    email: req.body.email,
-    createdAt: req.body.createdAt,
-    checkIn: req.body.checkIn,
-    checkOut: req.body.checkOut,
-    bookignId: req.body.bookignId
-  });
-
-  // Save bookign in the database
-  Booking.create(booking, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Quelques erreurs sont parvenus dans le controller bookign."
-      });
-    else res.send(data);
-  });
-
-
-};
-
 
 //update one
 exports.update = (req, res) => {
@@ -55,7 +23,10 @@ exports.update = (req, res) => {
 
   Booking.updateId(
     req.params.id,
+    console.log(req.params.id),
     new Booking(req.body),
+    console.log(req.body),
+
     (err, data) => {
       if (err) {
         if (err.kind === "Pas trouvé") {
@@ -85,7 +56,7 @@ exports.delete = (req, res) => {
           message: "Impossible de supprimé id " + req.params.id
         });
       }
-    } else res.send({ message: `bookign supprimé =!` });
+    } else res.send({ message: `booking supprimé =!` });
   });
 };
 

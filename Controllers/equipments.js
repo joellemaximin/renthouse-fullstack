@@ -43,7 +43,7 @@ exports.create = (req, res) => {
 
 //findOne
 exports.findOne = (req, res) => {
-    Equipment.getId(req.params.id, (err, res) => {
+    Equipment.getId(req.params.id, (err, resultat) => {
     if (err){
       if (err.kind === "Pas trouvé") {
         res.status(404).send({
@@ -54,7 +54,7 @@ exports.findOne = (req, res) => {
           message: "Retrouve pas cette activitée " + req.params.id
         });
       }
-    } else res.send(data)
+    } else res.send(resultat)
   });
 }
 

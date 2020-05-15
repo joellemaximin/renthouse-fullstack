@@ -2,32 +2,31 @@ const pool = require("../middleware/dbConnect");
 
 
 // constructor
-const Category = function(category) {
-  this.title = category.title;
-
-  //FKMAPS
+const Comments = function(comment) {
+  this.body = comment.body;
+  this.tilte = comment.tilte;
 
 };
   
-Category.create = (newCategory, result) => {
-  pool.query("INSERT INTO categories SET ?", newCategory, (err, res) => {
+Comments.create = (newcomment, result) => {
+  pool.query("INSERT INTO comments SET ?", newcomment, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
       return;
     }
 
-    console.log("created category: ", { 
-      id: res.insertId, ...newCategory 
+    console.log("created Comments: ", { 
+      id: res.insertId, ...newcomment 
     });
     result(null, { 
-      id: res.insertId, ...newCategory
+      id: res.insertId, ...newcomment
     });
   });
 };
 
-Category.getAll = result => {
-  pool.query("SELECT * from categories", (err, res) => {
+Comments.getAll = result => {
+  pool.query("SELECT * from comments", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -40,8 +39,8 @@ Category.getAll = result => {
 
 };
 
-Category.getId = (id, result) => {
-  pool.query(`SELECT * FROM categories WHERE id = ${id}`, (err, res) => {
+Comments.getId = (id, result) => {
+  pool.query(`SELECT * FROM comments WHERE id = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -49,20 +48,20 @@ Category.getId = (id, result) => {
     }
 
     if (res.length) {
-      console.log("Category: ", res[0]);
+      console.log("Comments: ", res[0]);
       result(null, res[0]);
       return;
     }
 
-    // not found category with the id
+    // not found Comments with the id
     result({ kind: "Introuvable" }, null);
   
   });
 }
 
-Category.updateId = (id, category, result) => {
-  pool.query('UPDATE categories SET title = ? WHERE id = ?',
-    [category.title, id],
+Comments.updateId = (id, comment, result) => {
+  pool.query('UPDATE comments SET name = ? WHERE id = ?',
+    [comment.name, id],
       (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -71,7 +70,7 @@ Category.updateId = (id, category, result) => {
       }
 
       if (res.affectedRows == 0) {
-        // not found category with the id
+        // not found Comments with the id
         result({ kind: "not_found" }, null);
         return;
       }
@@ -82,4 +81,4 @@ Category.updateId = (id, category, result) => {
 }
 
 
-module.exports = Category;
+module.exports = Comments;

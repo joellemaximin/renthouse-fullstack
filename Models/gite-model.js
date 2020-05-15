@@ -12,6 +12,7 @@ const Gite = function(gite) {
   this.terrasse = gite.terrasse;
   this.price = gite.price;
   this.nameLogement = gite.nameLogement;
+  this.photoID = user.photoId;
 
 
   //FKMAPS

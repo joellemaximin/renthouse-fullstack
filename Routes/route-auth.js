@@ -85,11 +85,16 @@ router.post('/login', (req, res)=> {
 // `  const password = req.body.password
 
 
-    const email = req.body.email;
-    const username = req.body.username
-    const password = req.body.password
+    var userData = {
+        email: req.body.email,
+        password: req.body.password,
+        username: req.body.username,
+        role: req.body.role
+    }
 
-    pool.query('SELECT * FROM users WHERE email = ?',[email], function (error, results, fields) {
+    const user = userData;
+
+    pool.query('SELECT * FROM users WHERE email = ?',[user.email], function (error, results, fields) {
         if (error) {
 
             res.json({
@@ -101,7 +106,7 @@ router.post('/login', (req, res)=> {
             if(results.length > 0){
                 //decided to authen only with email
                 // if(password==results[0].password){
-                if(email == results[0].email){
+                if(user.email == results[0].email){
                     // res.json({
                     //   status:true,
                     //   message:'successfully authenticated'
@@ -109,7 +114,10 @@ router.post('/login', (req, res)=> {
                     // console.log({id: results[0].id})
 
 
-                    const token = jwt.sign({ id: results[0].id },
+                    const token = jwt.sign({ id: results[0].id,
+                        role: results[0].role,
+                        username: results[0].username,
+                    },
                     dbConfig.secret);
 
                     res.cookie('t', token, {expiresIn: 8460 })
@@ -117,7 +125,7 @@ router.post('/login', (req, res)=> {
                     // const refreshToken = jwt.sign(user, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
 
                     // const response = {
-                    //     "status": "Logged in",
+                    //     "status": "Logged in", 
                     //     "token": token,
                     //     "refreshToken": refreshToken,
                     // }
@@ -125,8 +133,9 @@ router.post('/login', (req, res)=> {
 
                     res.status(200).send({
 
-                        email: email,
-                        password: password,
+                        email: user.email,
+                        role: user.role,
+                        password: user.password,
                         accessToken: token
                     })
                    
@@ -153,29 +162,42 @@ router.post('/login', (req, res)=> {
     
 });
 
-
-router.get('/secret-route', verified, (req, res, next)=>{
-    const username = req.body.username
-
-    if (req.user.role != 'admin') {
-        res.json({message: 'Permission denied.' });
-    }
-    if (req.user.role != 'client') {
-        res.json({message: 'Permission denied.' });
-    }
-    else {
-        next();
+//get profile when connected
+router.get('/profile', verified, (req, res, next)=>{
+    var userData = {
+        email: req.body.email,
+        username: req.body.username,
+        role: req.body.role
     }
 
-    console.log(req.user, 'id, time');
-    console.log(req.body.email, req.body.username)
+    const user = userData;
+
+    console.log(req.user);
+    console.log(user)
     res.send('This is the secret content. Only logged in users can see that!');
     //copie colle access-token after login
+})
+
+//profile update
+router.put('/profile-update/:id', verified, (req, res, next)=>{
+    var id = req.params.id
+    var username = req.body.username
+    
+
+    const profileUpdate = `UPDATE users SET username="${username}" WHERE id=${id}`;
+    pool.query(profileUpdate, (err, result) => {
+        if(err) {
+            res.status(500).send({ err: 'Something failed!' })
+        }
+        res.json(result)
+    });
+    
 })
 
 router.post('/logout', verified, (req, res) => {
     res.clearCookie('t');
     res.json({message: "Signout successful"});
 });
+
 
 module.exports = router;

@@ -52,7 +52,7 @@ exports.create = (req, res) => {
 
 //findOne
 exports.findOne = (req, res) => {
-  Gite.getId(req.params.id, (err, resultat) => {
+  Gite.getId(req.params.id, (err, result) => {
     if (err){
       if (err.kind === "Pas trouvé") {
         res.status(404).send({
@@ -64,7 +64,7 @@ exports.findOne = (req, res) => {
         });
       }
     } else
-    res.send(resultat)
+    res.send(result)
   });
 }
 

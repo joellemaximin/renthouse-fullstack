@@ -10,69 +10,72 @@ const User = function(user) {
   this.email = user.email;
   this.username = user.username;
   this.password = user.password;
-
+  this.role = user.role;
+  this.price = user.price;
+  this.commentID = user.commentId;
+  this.photoID = user.photoID;
 };
 
 
 
 //  pool.query("SELECT roles.*, photos.`name` from roles INNER JOIN photos ON roles.`id` = photos.`id` INNER JOIN equipements ON roles.`id` = equipements.`id`", (err, res) => {
 
-User.createUser = async (email, result) => {
+// User.createUsers = async (email, result) => {
 
-  const salt = await bcrypt.genSalt(10);
+//   const salt = await bcrypt.genSalt(10);
 
-  pool.query('SELECT * FROM users WHERE email= ?, username=? ', [email, username], (err, res) => {
-    if (err) throw err;
+//   pool.query('SELECT * FROM users WHERE email= ?, username=? ', [email, username], (err, res) => {
+//     if (err) throw err;
         
-    if (!result.length) {
-      bcrypt.hash(user.password, salt, function(err, hash){
-        if(err) console.log(err);
-        password = hash;
+//     if (!result.length) {
+//       bcrypt.hash(user.password, salt, function(err, hash){
+//         if(err) console.log(err);
+//         password = hash;
         
-        pool.query('INSERT INTO users SET ?', user, function (error, result, fields) {
-            if (error) throw error;
-            res.send({user: user.username});
-        }); 
-      });
-    }
+//         pool.query('INSERT INTO users SET ?', user, function (error, result, fields) {
+//             if (error) throw error;
+//             res.send({user: user.username});
+//         }); 
+//       });
+//     }
   
-    else {
-      return res.send("Email already exists");
-    }
-  });
-};
+//     else {
+//       return res.send("Email already exists");
+//     }
+//   });
+// };
 
 
 
-User.loginIn = ( username, password, result) => {
+// User.loginIn = ( username, password, result) => {
 
-  pool.query('SELECT * FROM users WHERE username = ?', [username], (err, res, fields) =>{
-    if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        return;
-    } else {
-      console.log('The solution is: ', result);
-        if (result.length > 0) {
-            console.log("User: ", res[0]);
-            if(
-                res[0].password == password){
-                result(null, "sucess");
-                return;
-            // results(null, err);
+//   pool.query('SELECT * FROM users WHERE username = ?', [username], (err, res, fields) =>{
+//     if (err) {
+//         console.log("error: ", err);
+//         result(err, null);
+//         return;
+//     } else {
+//       console.log('The solution is: ', result);
+//         if (result.length > 0) {
+//             console.log("User: ", res[0]);
+//             if(
+//                 res[0].password == password){
+//                 result(null, "sucess");
+//                 return;
+//             // results(null, err);
 
-            }
-            else {
-                result(null, "error, username and pass don'/t match");
+//             }
+//             else {
+//                 result(null, "error, username and pass don'/t match");
 
-                return;
-            }
-        }
-    }
-    //not found User with the user ame
-    results({ kind: "Introuvable" }, null);
-    })
-};
+//                 return;
+//             }
+//         }
+//     }
+//     //not found Users with the users ame
+//     results({ kind: "Introuvable" }, null);
+//     })
+// };
 
  
 User.getAll = result => {
@@ -109,24 +112,24 @@ User.getId = (id, result) => {
   });
 }
 
-User.updateId = (id, result) => {
-  pool.query(`UPDATE user SET = ? WHERE id = ${id}`, (err, res) => {
-    if (error) throw error;
+User.updateId = (id, username, result) => {
+  pool.query("UPDATE users SET = usernmae ='" + req.body.usernmae  + "' WHERE id = '" + req.body.id + "'", (err, res) => {
+    if (err) throw err;
     console.log(result)
     res.send(result);
   });
 }
 
 
-User.remove = (id, result) => {
-  sql.query(`DELETE FROM user WHERE id = ${id}`, (err, res) => {
+User.deleteId = (id, result) => {
+  sql.query(`DELETE FROM users WHERE id = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
       return;
     }
 
-    console.log("User supprimé", id);
+    console.log("Users supprimé", id);
     result(null, res);
   });
 };

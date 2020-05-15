@@ -1,10 +1,5 @@
 const User = require("../Models/user-model");
-// const bcrypt = require('bcrypt');
-// const dbConfig = require("../middleware/db.config");
-// const jwt = require('jsonwebtoken')
 
-// const {validationRegister, loginValidation} = require('../middleware/validation')
- 
 exports.findAll = (req, res) => {
   User.getAll((err, data) => {
     if (err)
@@ -35,9 +30,38 @@ exports.findOne = (req, res) => {
 }
 
 
+//update one
+exports.update = (req, res) => {
+  // Validate Request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Veuillez remplir les champs!"
+    });
+  }
+
+  User.updateId(
+    req.params.id,
+    new User(req.body),
+    (err, data) => {
+      if (err) {
+        if (err.kind === "Pas trouvé") {
+          res.status(404).send({
+            message: `Erreur id ${req.params.id}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "Erreur pour cet update id" + req.params.id
+          });
+        }
+      } else res.send(data);
+    }
+  );
+};
+
+
 //deleteOne
 exports.delete = (req, res) => {
-  User.remove(req.params.id, (err, data) => {
+  User.deleteId(req.params.id, (err, data) => {
     if (err) {
       if (err.kind === "Pas trouvé") {
         res.status(404).send({

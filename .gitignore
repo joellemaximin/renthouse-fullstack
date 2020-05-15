@@ -5,8 +5,8 @@ node_modules
 .pnp.js
 client/src/Components/basepop971.json
 client/src/Components/token-google.js
-backend/services/config-aws.js
-backend/middleware/db.config.js
+services/config-aws.js
+middleware/db.config.js
 # testing
 /coverage
 

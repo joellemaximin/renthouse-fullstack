@@ -6,11 +6,14 @@ require('./Routes/route-c')(app);
 require('./Routes/route-equi')(app);
 // require('./Routes/route-auth')(app);
 require('./Routes/route-user')(app);
-// require('./Routes/route-role')(app);
+require('./Routes/route-booking')(app);
+require('./Routes/route-comments')(app);
 
 const userRouter = require("./Routes/route-auth");
+const bookingRoute = require("./Routes/route-b");
 
 app.use("/auth-admin", userRouter);
+app.use("/bookings", bookingRoute);
 
 //ok something here
 //heeeeellyeah

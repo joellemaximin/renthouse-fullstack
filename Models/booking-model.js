@@ -4,31 +4,14 @@ const pool = require("../middleware/dbConnect");
 
 // constructor
 const Booking = function(booking) {
-  this.email = booking.email;
-  this.name = booking.name;
   this.checkIn = booking.checkIn;
   this.checkOut = booking.checkOut;
-  this.createdAt = booking.createdAt;
   this.giteId = booking.giteId;
-  //FKMAPS
+  this.status = booking.status;
+  this.paid = booking.paid;
+  this.totalPrice = booking.totalPrice 
+  //userId
 
-};
-  
-Booking.create = (newBooking, result) => {
-  pool.query("INSERT INTO bookings SET ?", newBooking, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
-
-    console.log("created booking client: ", { 
-      id: res.insertId, ...newBooking 
-    });
-    result(null, { 
-      id: res.insertId, ...newBooking
-    });
-  });
 };
 
 Booking.getAll = result => {
@@ -68,8 +51,8 @@ Booking.getId = (id, result) => {
 }
 
 Booking.updateId = (id, booking, result) => {
-  pool.query('UPDATE bookings SET name = ?, email = ?, bathrooms = ?, address = ?, wifi = ?, terrasse = ?, photos = ? WHERE id = ?',
-    [booking.name, booking.email, booking.surface, booking.address, booking.wifi, booking.terrasse, booking.photos, id],
+  pool.query('UPDATE bookings SET checkIn=?, checkOut=?, giteId=? WHERE id = ?',
+    [booking.checkIn, booking.checkOut, booking.giteId, id],
       (err, res) => {
       if (err) {
         console.log("error: ", err);

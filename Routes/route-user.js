@@ -1,13 +1,15 @@
 module.exports = app => {
+  const verified = require('../middleware/verifytoken')
+
   const yup = require('../Controllers/user');
   // const verified = require('../middleware/validation')
 
 
-  app.get('/allUsers', yup.findAll);
+  app.get('/allUsers', verified, yup.findAll);
 
-  app.get('/private/user/:id', yup.findOne);
+  app.get('/user/:id', verified, yup.findOne);
 
-  //app.put('/private/user/:id', verified, yup.update);
+  app.put('/user/:id',  verified, yup.update);
 
-  // app.delete('/private/user/:id',verified, yup.delete);
+  app.delete('/user/:id',verified, yup.delete);
 };
