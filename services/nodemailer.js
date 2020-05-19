@@ -1,6 +1,3 @@
-// api-mailgun-key= "key-5b618125efef11c663fcc863785791df";
-// pwd= "pubkey-1f62c63ea9fb727177b7a294a2d9b4a5
-// "
 const nodemailer = require('nodemailer')
 const mg = require('nodemailer-mailgun-transport');
 const config = require('./config-mailgun')

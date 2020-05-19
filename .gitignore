@@ -8,6 +8,7 @@ client/src/Components/token-google.js
 services/config-aws.js
 middleware/db.config.js
 services/config-mailgun.js
+.env
 # testing
 /coverage
 
