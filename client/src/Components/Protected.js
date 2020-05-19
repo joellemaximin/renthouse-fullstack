@@ -17,7 +17,7 @@ function Protected({ component: Component, ...rest }) {
             )
         }
     
-        />
+        /> 
         );
     }
     

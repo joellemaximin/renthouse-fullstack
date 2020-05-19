@@ -3,12 +3,14 @@ const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const cors = require("cors");
 const morgan = require("morgan");
-var session = require('express-session');
+// var session = require('express-session');
 const pool = require("./middleware/dbConnect");
+const dotenv = require("dotenv")
 
 const app = express();
 
 require('dotenv').config();
+// dotenv.config({ path: path.resolve(__dirname, ".env") })
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,11 +19,11 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 
-app.use(session({
-	secret: 'seecret',
-	resave: true,
-	saveUninitialized: true
-}));
+// app.use(session({
+// 	secret: 'seecret',
+// 	resave: true,
+// 	saveUninitialized: true
+// }));
 
 
 if (process.env.NODE_ENV === 'production') {

@@ -80,8 +80,23 @@ const commentValidation = data => {
     return schema.validate(data)
 }
 
+
+const contactValidation = data => {
+
+    const schema = Joi.object({
+        email: Joi.string().required().email(),
+        body: Joi.string().min(6).max(350),
+        sendAt: Joi.date()
+
+
+    })
+    return schema.validate(data)
+}
+
+
 module.exports.validationRegister = validationRegister;
 module.exports.loginValidation = loginValidation;
 module.exports.bookingValidation = bookingValidation;
 module.exports.imageValidation = imageValidation;
 module.exports.commentValidation = commentValidation;
+module.exports.contactValidation = contactValidation;

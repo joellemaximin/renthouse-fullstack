@@ -1,4 +1,4 @@
-const Category = require("../Models/Categ-model");
+const Category = require("../Model/categ-model");
 
 exports.findAll = (req, res) => {
   Category.getAll((err, data) => {

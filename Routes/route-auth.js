@@ -122,15 +122,6 @@ router.post('/login', (req, res)=> {
 
                     res.cookie('t', token, {expiresIn: 8460 })
 
-                    // const refreshToken = jwt.sign(user, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
-
-                    // const response = {
-                    //     "status": "Logged in", 
-                    //     "token": token,
-                    //     "refreshToken": refreshToken,
-                    // }
-                    // res.status(200).json(response);        
-
                     res.status(200).send({
 
                         email: user.email,
@@ -165,16 +156,23 @@ router.post('/login', (req, res)=> {
 //get profile when connected
 router.get('/profile', verified, (req, res, next)=>{
     var userData = {
-        email: req.body.email,
-        username: req.body.username,
-        role: req.body.role
+        email: req.user.email,
+        username: req.user.username,
+        role: req.user.role
     }
 
     const user = userData;
 
     console.log(req.user);
     console.log(user)
-    res.send('This is the secret content. Only logged in users can see that!');
+    res.json({
+        username: req.user.username,
+        role: req.user.role,
+        email: req.user.email,
+
+    })
+    next()
+    // res.send('This is the secret content. Only logged in users can see that!');
     //copie colle access-token after login
 })
 
@@ -194,10 +192,75 @@ router.put('/profile-update/:id', verified, (req, res, next)=>{
     
 })
 
-router.post('/logout', verified, (req, res) => {
+
+//post?s
+router.get('/logout', verified, (req, res) => {
     res.clearCookie('t');
     res.json({message: "Signout successful"});
 });
 
 
+// router.get('/forgot-password', function(req, res, next) {
+//     res.json({message: "Request accepted" });
+// });
+
+
+// router.post('/forgot-password', async function(req, res, next) {
+//     //ensure that you have a user with this email
+//     var email = await User.findOne({where: { email: req.body.email }});
+//     if (email == null) {
+//     /**
+//      * we don't want to tell attackers that an
+//      * email doesn't exist, because that will let
+//      * them use this form to find ones that do
+//      * exist.
+//      **/
+//       return res.json({status: 'ok'});
+//     }
+//     /**
+//      * Expire any tokens that were previously
+//      * set for this user. That prevents old tokens
+//      * from being used.
+//      **/
+//     await ResetToken.update({
+//         used: 1
+//       },
+//       {
+//         where: {
+//           email: req.body.email
+//         }
+//     });
+   
+//     //Create a random reset token
+//     var fpSalt = crypto.randomBytes(64).toString('base64');
+   
+//     //token expires after one hour
+//     var expireDate = new Date();
+//     expireDate.setDate(expireDate.getDate() + 1/24);
+   
+//     //insert token data into DB
+//     await ResetToken.create({
+//       email: req.body.email,
+//       expiration: expireDate,
+//       token: token,
+//       used: 0
+//     });
+   
+//     //create email
+//     const message = {
+//         from: process.env.SENDER_ADDRESS,
+//         to: req.body.email,
+//         replyTo: process.env.REPLYTO_ADDRESS,
+//         subject: process.env.FORGOT_PASS_SUBJECT_LINE,
+//         text: 'To reset your password, please click the link below.\n\nhttps://'+process.env.DOMAIN+'/user/reset-password?token='+encodeURIComponent(token)+'&email='+req.body.email
+//     };
+   
+//     //send email
+//     transport.sendMail(message, function (err, info) {
+//        if(err) { console.log(err)}
+//        else { console.log(info); }
+//     });
+   
+//     return res.json({status: 'ok'});
+//   });
 module.exports = router;

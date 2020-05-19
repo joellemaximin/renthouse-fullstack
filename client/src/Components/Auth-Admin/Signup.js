@@ -31,7 +31,7 @@ const Signup = (props) => {
         setAuthTokens(result.data);
         //console.log(result.data)
         setSignUp(true);
-        props.history.push('/')
+        props.history.push('/login')
       } else {
         setIsError(true);
       }
@@ -56,7 +56,7 @@ const Signup = (props) => {
     <div>
     <h3 className="form-title">S'enregistrer ici</h3>
    
-   { isError &&<Error>Ce username est déjà pris!</Error> }
+   { isError &&<Error>Ce username ou email est déjà pris!</Error> }
 
     <Form className="form-ii-connect" > 
       <FormGroup>

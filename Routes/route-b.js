@@ -57,13 +57,13 @@ router.get("/search-date", (req, res) => {
 
 
   // check if the date is not taken
-  pool.query('SELECT count(*) FROM bookings where giteId = ' + giteId + ' and (( ' + checkIn + '  between checkIn and checkOut ) or (' + checkOut + '  between checkIn and checkOut ))'
+  pool.query('SELECT count(*) FROM bookings where giteId = ' + giteId + ' and (( ' + checkIn + '  between checkIn and checkOut ) or (' + checkOut + '  between checkIn and checkOut ) or )'
 , function(err, rows){
   console.log(req.query.checkIn)
   console.log(req.query.giteId)
-  console.log(req.query.checkIn)
+  console.log(req.query.checkOut)
 
-      if (!rows.length) {
+      if (rows.length) {
         res.send('date available ')
         console.log(rows)
 
@@ -74,32 +74,8 @@ router.get("/search-date", (req, res) => {
       }
     });
   })
-  // const existingParams = [booking.checkIn, booking.checkOut].filter(field => req.query[field]);
 
-  // if (existingParams.length) {
-  //     sql += " WHERE ";
-  //     sql += existingParams.map(field => `${field} = ?`).join(" BETWEEN ");
-  // }
-
-  // pool.query(
-  //   sql,
-  //   existingParams.map(field => req.query[field]),
-  //   function (error, results, fields) {
-  //     res.json({"status": 200, "error": error, "response": results});
-  //   }
-//   // );
-//   pool.query('SELECT * FROM bookings JOIN gites on gites.id = bookings.giteID WHERE bookings.`checkIn` >= 0 AND bookings.`checkOut` <= 0 OR bookings.`checkIn` <= 0 AND bookings.`checkOut` >= 0 ', [booking.checkIn, booking.checkOut, booking.giteId], function(err, rows){
-      
-
-//     // if(booking.checkIn >= 0 && booking.checkOut <= 0 ){
-//     if(!rows.length ){
-//       return res.status(200).json({
-//         message: "Booking present"
-//       })       
-//     }
-//   })
-// })
-
+  //working on sql but not on request http using postman
 
 //checkout
 router.post("/add-booking", verified, async (req, res) => {

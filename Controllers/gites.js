@@ -1,4 +1,4 @@
-const Gite = require("../Models/gite-model");
+const Gite = require("../Model/gite-model");
 // const uploadToS3 = require('../services/file-upload')
 
 

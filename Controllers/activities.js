@@ -1,4 +1,4 @@
-const Activity = require("../Models/activity-model");
+const Activity = require("../Model/activity-model");
 
 exports.findAll = (req, res) => {
   Activity.getAll((err, data) => {

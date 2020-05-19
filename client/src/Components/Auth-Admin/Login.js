@@ -58,9 +58,22 @@ const Login = (props) => {
   }
 
 	
+  //  if (redirectToReferrer) {
+  //   return <Redirect to='/admin' />
+  // }
+  // if (!isLoggedIn) {
+  //   return <Link to="/login">Vous êtes pas connecté</Link>;
+
+  // }
+
   if (isLoggedIn) {
-    return <Redirect to='/admin' />
-  } 
+    
+      return <Redirect to="/admin/dashboard" />
+    } else {
+      return <Redirect to="/user/dashboard" />
+    }
+
+
 
   //async function checkUser() {
   //   {
@@ -74,10 +87,7 @@ const Login = (props) => {
   //   }
   // }
 
-  // else if (!isLoggedIn) {
-  //   return <Link to="/login">Vous êtes pas connecté</Link>;
 
-  // }
 
 
   

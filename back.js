@@ -11,13 +11,12 @@ require('./Routes/route-comments')(app);
 
 const userRouter = require("./Routes/route-auth");
 const bookingRoute = require("./Routes/route-b");
+const contactRoute = require("./Routes/route-contact");
 
 app.use("/auth-admin", userRouter);
 app.use("/bookings", bookingRoute);
+app.use("/contact", contactRoute);
 
-//ok something here
-//heeeeellyeah
+
 const port = process.env.PORT || 9200;
 app.listen(port, () => console.log(`server on port ${port}`));
-
- 

@@ -1,4 +1,4 @@
-const Comments = require("../Models/comment-model");
+const Comments = require("../Model/comment-model");
 const {commentValidation} = require('../middleware/validation')
 
 exports.findAll = (req, res) => {

@@ -14,18 +14,23 @@ import AdminNav from './AdminNavigation'
 import { useAuth, setTokens } from "../Auth";
 
 const Admin = (props) => {
-  const [userLogin, setLoggedIn] = useState(false);
-  const [isTimeOut, setTimeOut] = useState(false);
-  const [showModal, setModal] = useState(false);
+  // const [userLogin, setLoggedIn] = useState(false);
+  // const [isTimeOut, setTimeOut] = useState(false);
+  // const [showModal, setModal] = useState(false);
  
-  const authTokens = useAuth();
+  // const { setAuthTokens } = useAuth();
 
-  console.log(authTokens)
+  // function logOut() {
+  //   setAuthTokens();
+  // }
+
+
   return (
 
     <div>
       <h2>ADMIN</h2>
-      <div>Bienvenue {userLogin.username}</div>
+      <div>Bienvenue </div>
+      {/* <Button onClick={logOut}>Log out</Button> */}
 
 
       <ul> 
@@ -33,6 +38,6 @@ const Admin = (props) => {
       </ul>
       
     </div>
-  )
+  ) 
 }
 export default Admin;

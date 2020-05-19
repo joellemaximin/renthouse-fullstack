@@ -1,4 +1,4 @@
-const Equipment = require("../Models/Equipments");
+const Equipment = require("../Model/Equipments");
 
 exports.findAll = (req, res) => {
   Equipment.getAll((err, data) => {

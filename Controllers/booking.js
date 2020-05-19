@@ -1,4 +1,4 @@
-const Booking = require("../Models/booking-model");
+const Booking = require("../Model/booking-model");
 
 exports.findAll = (req, res) => {
   Booking.getAll((err, data) => {
