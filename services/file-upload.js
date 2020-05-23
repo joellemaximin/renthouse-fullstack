@@ -2,6 +2,7 @@ const aws = require('aws-sdk')
 const config = require('./config-aws')
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+const path = require('path')
 
 aws.config.update({
 	secretAccessKey: config.AWS_SECRET_ACCESS,
@@ -10,6 +11,7 @@ aws.config.update({
 })
   
 const s3 = new aws.S3();
+var logoBucket = new aws.S3( { params: {Bucket: config.AWS_SECRET_ACCESS} } )
 
 const fileFilter = (req, file, cb) => {
 	// reject a file
@@ -29,13 +31,16 @@ const upload =multer({
 		s3:s3,
 		bucket: config.BUCKET_NAME,
 		acl: 'public-read',
+		// contentType: multerS3.AUTO_CONTENT_TYPE,
 		metadata: function (req, file, cb) {
-			cb(null, {fieldName: 'oeainoefa'});
-			//cb(null, {fieldName: file.fieldname});
-
+			cb(null, {fieldName: file.fieldname});
 		},
-		key: function (req, file, cb) {
-			cb(null, Date.now().toString())
+		key: function (req, file, ab_callback) {
+			// cb(null, Date.now().toString())
+			var newFileName = Date.now().toString() + "-" + path.extname(file.originalname);
+			var fullPath = 'gitepicture/'+ newFileName;
+			console.log(file)
+			ab_callback(null, fullPath);
 		}
 	})
 })

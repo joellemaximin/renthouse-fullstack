@@ -4,7 +4,7 @@ const pool = require("../middleware/dbConnect");
 // constructor
 const Photo = function(pho) {
   this.name = pho.name;
-
+  this.location = pho.name
 };
   
 Photo.create = (newPhoto, result) => {
@@ -31,6 +31,39 @@ Photo.getAll = result => {
     result(null, res);
   });
 };
+
+Photo.getId = (id, result) => {
+  pool.query(`SELECT * FROM photos WHERE id = ${id}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log("photo: ", res[0]);
+      result(null, res[0]);
+      return;
+    }
+    // not found Customer with the id
+    result({ kind: "Introuvable" }, null);
+  
+  });
+}
+
+Photo.deleteId = (id, result) => {
+  sql.query(`DELETE FROM photos WHERE id = ${id}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("photo supprimé", id);
+    result(null, res);
+  });
+};
+
 
 
 // app.post('/upload', function (req, res) {

@@ -1,38 +1,10 @@
-// module.exports = app => {
-//     const yup = require('../Controllers/booking');
-  
-//     app.post('/booking', yup.create);
-    
-//     //private setlist bookings
-//     app.get('/bookings', yup.findAll);
-  
-//     app.get('/booking/:id', yup.findOne);
-  
-//     app.put('/booking/:id', yup.update);
-  
-//     app.delete('/booking/:id', yup.delete);
-
-//     app.get('/bookings-past', yup.lastBookings);
-
-//     app.delete('/bookings-annuled', yup.annuled)
-
-// };
-
-// module.exports = app => {
-//     const yup = require('../Controllers/auth');
-  
-//     app.post('/login', yup.login);
-  
-//     app.post('/register', yup.register);
-
-//     // app.get('/signout', yup.signout)
-// }
-
 const express = require("express");
 const router = express.Router();
 const pool = require("../middleware/dbConnect");
 const verified = require('../middleware/verifytoken')
-
+const nodemailer = require('nodemailer');
+const mg = require('nodemailer-mailgun-transport');
+ 
 router.use(express.json());
 
 const {bookingValidation} = require('../middleware/validation')
@@ -48,7 +20,7 @@ router.get("/", verified, async (req, res) => {
 });
 
 //search if date is available
-router.get("/search-date", (req, res) => {
+router.get("/searchdate", (req, res) => {
   //validate the data before send it and show errors
   
   const checkIn = req.query.checkIn;
@@ -57,25 +29,28 @@ router.get("/search-date", (req, res) => {
 
 
   // check if the date is not taken
-  pool.query('SELECT count(*) FROM bookings where giteId = ' + giteId + ' and (( ' + checkIn + '  between checkIn and checkOut ) or (' + checkOut + '  between checkIn and checkOut ) or )'
+  pool.query('SELECT count(*) FROM bookings where giteId = ' + giteId + ' and (( ' + checkIn + '  between checkIn and checkOut ) or (' + checkOut + '  between checkIn and checkOut ))'
 , function(err, rows){
   console.log(req.query.checkIn)
   console.log(req.query.giteId)
   console.log(req.query.checkOut)
+  console.log("rows : " + JSON.stringify(rows));
+  console.log("row.length : " + rows.length);
 
-      if (rows.length) {
-        res.send('date available ')
-        console.log(rows)
+    if (err) throw err;
 
-      } else {
-        console.log(rows)
+    if (rows.length >= 0) {
+      console.log("not", rows.length)
+      res.json(rows.length)
+    } else {
+      console.log("dezz", rows.length)
+      res.json(rows.length)
+    }
+   
+  });
+})
 
-        res.send('date unvaila ')
-      }
-    });
-  })
-
-  //working on sql but not on request http using postman
+//working on sql but not on request http using postman
 
 //checkout
 router.post("/add-booking", verified, async (req, res) => {
@@ -91,11 +66,12 @@ router.post("/add-booking", verified, async (req, res) => {
         giteId: req.body.giteId,
         totalPrice: req.body.totalPrice,
         paid: req.body.paid
+
         //add user.id when connected
     }
 
     const booking = addBooking;
-
+ 
     //check if the date is not taken
 
     pool.query('SELECT * from bookings where checkin', [booking.checkIn, booking.checkOut], function(err, rows){
@@ -114,6 +90,23 @@ router.post("/add-booking", verified, async (req, res) => {
 
             pool.query('INSERT INTO bookings SET ?', booking, function (error, results, fields) {
               if (error) throw error;
+          
+              const nodemailerMailgun = nodemailer.createTransport(mg(auth));
+
+              nodemailerMailgun.sendMail({
+                from: process.env.SENDER_ADDRESS,
+                to: req.body.email,
+                replyTo: process.env.REPLYTO_ADDRESS,
+                subject: process.env.FORGOT_PASS_SUBJECT_LINE,
+                text: 'Votre réservation est bien enregistrée'
+              });
+            
+              //send email
+              transport.sendMail(message, function (err, info) {
+                if(err) { console.log(err)}
+                else { console.log(info); }
+              });
+   
               return res.status(200).json({
                   message: "Booking enregistré"
               })

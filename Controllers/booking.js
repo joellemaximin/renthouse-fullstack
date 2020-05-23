@@ -77,7 +77,7 @@ exports.findOne = (req, res) => {
     res.send(results)
   });
 }
-
+ 
 //display last bookings
 exports.lastBookings = (req, res) => {
   Booking.oldest((err, data) => {
