@@ -17,6 +17,8 @@ import Login from './Components/Auth-Admin/Login';
 import Signup from './Components/Auth-Admin/Signup';
 import AdminDashboard from './Components/Auth-Admin/Admin';
 import Dashboard from './Components/Dashboard/Dashboard';
+import Galleria from './Components/GalleryPhotos'
+import DisplayImg from './Components/DisplayImage'
 
 import {Redirect, Route, BrowserRouter as Router } from 'react-router-dom';
 import { AuthContext } from "./Components/Auth";
@@ -89,7 +91,8 @@ const App = (props) => {
 
           <Route exact path="/tourisme" component={Activities} />
           
-          {/* <Route exact path="/photos" component={Photos} /> */}
+          <Route exact path="/gallery" component={Galleria} />
+          {/* <Route exact path="/photo/:id" component={Photo} /> */}
           
           {/* <Route render={(path='?') => <h1>404: page not found</h1>} /> */}
           

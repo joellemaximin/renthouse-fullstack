@@ -14,6 +14,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import Gites from './Gites';
 import Paiement from './svg/payment-card-v2.png';
 import './gite.css'
+import DisplayImg from './DisplayImage';
+import Upload from './GalleryPhotos';
 
 const Home = (props) => {
 
@@ -24,7 +26,8 @@ return (
     {/* <Photos/> */}
 
     <Gites />
-
+    {/* <DisplayImg/>
+    <Upload/> */}
     <div className='PaymentSection'>Paiement possible: 
       <img className="paiement" src={Paiement} alt="logo" />
     </div>

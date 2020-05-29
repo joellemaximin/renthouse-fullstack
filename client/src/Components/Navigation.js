@@ -24,9 +24,9 @@ const Navigation = () => {
             <Nav.Link eventKey="link" href="/choose-language">fr</Nav.Link>
           </Nav.Item> */}
 
-          {/* <Nav.Item as="li">
-            <Nav.Link eventKey="link-3" href="/pictures">Photos</Nav.Link>
-          </Nav.Item> */}
+          <Nav.Item as="li">
+            <Nav.Link eventKey="link-3" href="/gallery">Photos</Nav.Link>
+          </Nav.Item>
 
           <Nav.Item as="li">
             <Nav.Link eventKey="link-3" href="/tourisme">Tourisme</Nav.Link>

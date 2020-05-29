@@ -11,14 +11,16 @@ import {
 from 'reactstrap';
 import '../booking.css'
 import { useParams, useHistory } from 'react-router-dom';
-import Calendar from 'react-calendar';
+import BookingCalendar from "../Calendar/BookingCalendar";
+import BookingPeople from "../People/BookingPeople";
+
 
 const Booking = (props) => {
 	const [showLoading, setShowLoading] = useState(true);
     const [inputs, setInputs] = useState(
         {name: '', email: '', checkIn: '', checkOut: '', bookedDay: '', giteName: ''}
     );
-    const history = useHistory()
+  const history = useHistory()
 
 
   const handleInputChange = event => {
@@ -52,75 +54,15 @@ return (
   <div className="booking-holiday">
     <div className="box-model">
       <h2 className="title-booking">Réservez votre hébergment dans la nature</h2>
+
       <Form onSubmit={makeBoking} >
         
-        <FormGroup row>
-          <Label className="label" sm={2}>
-            Arrivée
-          </Label>
-          <Col sm={6}>
-          <Input
-            type="text"
-            placeholder="jj/mm/aaaa" 
-            value= {inputs.checkIn || ""}
-            onChange={handleInputChange}
-            name="checkOut"
-            required
-          />
-          </Col>
-        </FormGroup>
-  
-        <FormGroup row>
-          <Label className="label" sm={2}>
-            Départ
-          </Label>
-          <Col sm={6}>
-          <Input
-            type="text"
-            placeholder="jj/mm/aaaa" 
-            // value="" 
-            // readonly=""
-            value= {inputs.checkOut || ""}
-            onChange={handleInputChange}
-            name="checkOut"
-            required
-          />
-          </Col>
-        </FormGroup>
-  
-        <FormGroup row>
-          <Label className="label" sm={2}>
-            Voyageurs
-          </Label>
-          <Col sm={6}>
-          <Input
-            type="text"
-            placeholder="Jennifer"
-            value= {inputs.name || ""}
-            onChange={handleInputChange}
-            name="name"
-            required
-          />
-          </Col>
-          
-        </FormGroup>
-        {/* 
-        <FormGroup row>
-          <Label className="label" sm={2}>
-            Voyageurs
-          </Label>
-  
-          <Col sm={6}>
-          <Input
-              type="text"
-              placeholder="jennifer@gmail.com"
-              value= {inputs.email || ""}
-              onChange={handleInputChange}
-              name="email"
-              required
-          />
-          </Col>
-        </FormGroup> */}
+        <BookingCalendar/>
+
+
+        <BookingPeople/>
+        
+
   
         <div className="submit_newbook">
           <Button

@@ -46,13 +46,12 @@ const paid = ["paid", "unpaid"];
 const bookingValidation = data => {
 
     const schema = Joi.object({
-        checkIn: Joi.date().required(),
-        checkOut: Joi.date().required(),
+        checkIn: Joi.date(),
+        checkOut: Joi.date(),
         giteId: Joi.number(),
         status: Joi.any().valid(...status),
         paid: Joi.any().valid(...paid).default('unpaid'),
         totalPrice: Joi.number(),
-        createdAt:Joi.date()
 
 
     })

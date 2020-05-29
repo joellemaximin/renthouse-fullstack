@@ -66,13 +66,12 @@ const Login = (props) => {
 
   // }
 
-  if (isLoggedIn) {
-    
-      return <Redirect to="/admin/dashboard" />
-    } else {
-      return <Redirect to="/user/dashboard" />
-    }
-
+  // if (isLoggedIn) {
+  //     return <Redirect to="/admin/dashboard" />
+  //   } else {
+  //     return <Redirect to="/user/dashboard" />
+  //   }
+  
 
 
   //async function checkUser() {
